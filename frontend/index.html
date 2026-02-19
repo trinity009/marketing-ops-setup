@@ -29,6 +29,10 @@
           <span>Structured Brand KB</span>
           <span>Agent Workflow Runner</span>
         </div>
+        <div class="pulse-row">
+          <span class="pulse-dot"></span>
+          <span>Live workflow system active</span>
+        </div>
       </header>
 
       <section class="panel reveal delay-1">
@@ -97,7 +101,30 @@
           <input name="workflow_name" value="standard-marketing-workflow" required />
           <button type="submit">Run Agents</button>
         </form>
-        <pre id="runOutput">No runs yet.</pre>
+        <div class="stage-grid">
+          <article class="stage-card">
+            <p class="stage-label">Stage 01</p>
+            <h3>Research</h3>
+            <p id="researchSummary" class="stage-summary">Run a workflow to see research findings.</p>
+            <ul id="researchList" class="stage-list"></ul>
+          </article>
+          <article class="stage-card">
+            <p class="stage-label">Stage 02</p>
+            <h3>Insights</h3>
+            <p id="insightsSummary" class="stage-summary">Actionable insight output appears here.</p>
+            <ul id="insightsList" class="stage-list"></ul>
+          </article>
+          <article class="stage-card">
+            <p class="stage-label">Stage 03</p>
+            <h3>Content</h3>
+            <p id="contentSummary" class="stage-summary">Generated draft copy and notes appear here.</p>
+            <ul id="contentList" class="stage-list"></ul>
+          </article>
+        </div>
+        <div class="result-toolbar">
+          <button id="toggleRawBtn" type="button" class="subtle">Toggle Raw JSON</button>
+        </div>
+        <pre id="runOutput" class="hidden">No runs yet.</pre>
       </section>
 
       <section class="grid grid-3 reveal delay-4">

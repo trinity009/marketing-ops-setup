@@ -25,6 +25,13 @@ const ids = {
   templateList: document.getElementById("templateList"),
   promptList: document.getElementById("promptList"),
   runOutput: document.getElementById("runOutput"),
+  researchSummary: document.getElementById("researchSummary"),
+  insightsSummary: document.getElementById("insightsSummary"),
+  contentSummary: document.getElementById("contentSummary"),
+  researchList: document.getElementById("researchList"),
+  insightsList: document.getElementById("insightsList"),
+  contentList: document.getElementById("contentList"),
+  toggleRawBtn: document.getElementById("toggleRawBtn"),
 };
 
 function formDataToObject(form) {
@@ -44,6 +51,67 @@ function renderList(container, items, mapper) {
     li.textContent = mapper(item);
     container.appendChild(li);
   });
+}
+
+function renderBullets(container, items) {
+  container.innerHTML = "";
+  if (!items || !items.length) {
+    const li = document.createElement("li");
+    li.textContent = "No details available yet.";
+    container.appendChild(li);
+    return;
+  }
+  items.forEach((item) => {
+    const li = document.createElement("li");
+    li.textContent = item;
+    container.appendChild(li);
+  });
+}
+
+function renderWorkflowResult(rawResultJson) {
+  let parsed;
+  try {
+    parsed = JSON.parse(rawResultJson);
+  } catch (_error) {
+    ids.runOutput.textContent = rawResultJson;
+    ids.researchSummary.textContent = "Could not parse research output.";
+    ids.insightsSummary.textContent = "Could not parse insights output.";
+    ids.contentSummary.textContent = "Could not parse content output.";
+    renderBullets(ids.researchList, []);
+    renderBullets(ids.insightsList, []);
+    renderBullets(ids.contentList, []);
+    return;
+  }
+
+  const research = parsed.research || {};
+  const insights = parsed.insights || {};
+  const content = parsed.content || {};
+
+  ids.researchSummary.textContent = research.brand_constraints || "Research stage completed.";
+  ids.insightsSummary.textContent = insights.priority_insight || "Insights stage completed.";
+  ids.contentSummary.textContent = content.asset_notes || "Content stage completed.";
+
+  renderBullets(ids.researchList, research.research_findings || []);
+  renderBullets(ids.insightsList, insights.recommended_test_matrix || []);
+
+  const draftPreview = content.draft_copy
+    ? content.draft_copy.split("\n").slice(0, 2).join(" ")
+    : "No draft copy generated.";
+  renderBullets(ids.contentList, [draftPreview, content.asset_notes || "No asset notes"]);
+
+  ids.runOutput.textContent = JSON.stringify(parsed, null, 2);
+}
+
+async function refreshLatestWorkflow() {
+  try {
+    const workflows = await api.get("/api/workflows");
+    if (!Array.isArray(workflows) || !workflows.length) {
+      return;
+    }
+    renderWorkflowResult(workflows[0].result_json);
+  } catch (_error) {
+    // Keep dashboard usable even if workflow history is unavailable.
+  }
 }
 
 async function refreshLists() {
@@ -123,11 +191,16 @@ document.getElementById("runForm").addEventListener("submit", async (event) => {
   try {
     const payload = formDataToObject(event.target);
     const run = await api.post("/api/workflows/run", payload);
-    ids.runOutput.textContent = run.result_json;
+    renderWorkflowResult(run.result_json);
     ids.setupMessage.textContent = `Workflow run saved as #${run.id}.`;
   } catch (error) {
     ids.runOutput.textContent = `Workflow failed: ${error.message}`;
   }
 });
 
+ids.toggleRawBtn.addEventListener("click", () => {
+  ids.runOutput.classList.toggle("hidden");
+});
+
 refreshLists();
+refreshLatestWorkflow();
