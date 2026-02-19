@@ -35,7 +35,9 @@ const ids = {
   guidelineCount: document.getElementById("guidelineCount"),
   templateCount: document.getElementById("templateCount"),
   promptCount: document.getElementById("promptCount"),
+  workflowCount: document.getElementById("workflowCount"),
   flowRail: document.getElementById("flowRail"),
+  liveClock: document.getElementById("liveClock"),
 };
 
 const stageCards = Array.from(document.querySelectorAll(".stage-card"));
@@ -43,6 +45,31 @@ let stageAnimationTimer = null;
 
 function formDataToObject(form) {
   return Object.fromEntries(new FormData(form).entries());
+}
+
+function animateCount(element, target) {
+  if (!element) return;
+  const endValue = Number(target) || 0;
+  const startValue = Number(element.textContent) || 0;
+  const delta = endValue - startValue;
+  if (delta === 0) return;
+  const duration = 360;
+  const start = performance.now();
+  const frame = (now) => {
+    const progress = Math.min((now - start) / duration, 1);
+    const eased = 1 - (1 - progress) ** 3;
+    element.textContent = String(Math.round(startValue + delta * eased));
+    if (progress < 1) {
+      window.requestAnimationFrame(frame);
+    }
+  };
+  window.requestAnimationFrame(frame);
+}
+
+function updateLiveClock() {
+  if (!ids.liveClock) return;
+  const now = new Date();
+  ids.liveClock.textContent = now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 }
 
 function renderList(container, items, mapper) {
@@ -174,6 +201,7 @@ function renderWorkflowResult(rawResultJson, options = {}) {
 async function refreshLatestWorkflow() {
   try {
     const workflows = await api.get("/api/workflows");
+    animateCount(ids.workflowCount, workflows.length);
     if (!Array.isArray(workflows) || !workflows.length) {
       resetStageActivation();
       return;
@@ -195,9 +223,9 @@ async function refreshLists() {
     renderList(ids.guidelineList, guidelines, (g) => `#${g.id} ${g.name} | ${g.tone_of_voice}`);
     renderList(ids.templateList, templates, (t) => `#${t.id} ${t.name} | ${t.channel}`);
     renderList(ids.promptList, prompts, (p) => `#${p.id} ${p.name} | ${p.model_type}`);
-    ids.guidelineCount.textContent = String(guidelines.length);
-    ids.templateCount.textContent = String(templates.length);
-    ids.promptCount.textContent = String(prompts.length);
+    animateCount(ids.guidelineCount, guidelines.length);
+    animateCount(ids.templateCount, templates.length);
+    animateCount(ids.promptCount, prompts.length);
   } catch (error) {
     ids.setupMessage.textContent = `Could not load records: ${error.message}`;
   }
@@ -261,13 +289,21 @@ document.getElementById("promptForm").addEventListener("submit", async (event) =
 
 document.getElementById("runForm").addEventListener("submit", async (event) => {
   event.preventDefault();
+  const submitButton = event.target.querySelector("button[type='submit']");
+  const originalLabel = submitButton.textContent;
+  submitButton.disabled = true;
+  submitButton.textContent = "Running...";
   try {
     const payload = formDataToObject(event.target);
     const run = await api.post("/api/workflows/run", payload);
     renderWorkflowResult(run.result_json);
     ids.setupMessage.textContent = `Workflow run saved as #${run.id}.`;
+    await refreshLatestWorkflow();
   } catch (error) {
     ids.runOutput.textContent = `Workflow failed: ${error.message}`;
+  } finally {
+    submitButton.disabled = false;
+    submitButton.textContent = originalLabel;
   }
 });
 
@@ -278,3 +314,5 @@ ids.toggleRawBtn.addEventListener("click", () => {
 refreshLists();
 refreshLatestWorkflow();
 attachCardTilt();
+updateLiveClock();
+window.setInterval(updateLiveClock, 30000);

@@ -17,8 +17,20 @@
     <div class="bg-glow glow-b"></div>
     <div class="beam beam-a"></div>
     <div class="beam beam-b"></div>
+    <div class="noise-layer"></div>
 
     <main class="layout">
+      <nav class="topbar reveal">
+        <div class="brand-lockup">
+          <span class="brand-dot"></span>
+          <span class="brand-name">Ops Studio</span>
+        </div>
+        <div class="topbar-meta">
+          <span class="meta-pill">Production Surface</span>
+          <span id="liveClock" class="meta-pill">--:--</span>
+        </div>
+      </nav>
+
       <header class="hero reveal">
         <p class="eyebrow">Marketing Intelligence Platform</p>
         <h1>Marketing Ops Studio</h1>
@@ -34,6 +46,11 @@
         <div class="pulse-row">
           <span class="pulse-dot"></span>
           <span>Live workflow system active</span>
+        </div>
+        <div class="hero-orbit">
+          <span class="orbit-ring ring-1"></span>
+          <span class="orbit-ring ring-2"></span>
+          <span class="orbit-core"></span>
         </div>
       </header>
 
@@ -63,6 +80,10 @@
             <article class="stat-card motion-card">
               <p>Prompts</p>
               <h3 id="promptCount">0</h3>
+            </article>
+            <article class="stat-card motion-card">
+              <p>Workflow Runs</p>
+              <h3 id="workflowCount">0</h3>
             </article>
           </section>
 
