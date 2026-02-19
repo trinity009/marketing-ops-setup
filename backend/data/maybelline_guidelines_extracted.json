@@ -1,0 +1,52 @@
+{
+  "brand": "Maybelline New York",
+  "extracted_on": "2026-02-19",
+  "tone_of_voice": "Urban, Fast-moving, Inclusive, Performance-led, Empowering",
+  "do_list": [
+    "Lead with product performance proof in real-life use.",
+    "Use inclusive casting and shade/skin diversity across creative.",
+    "Anchor messaging in direct, energetic, urban language.",
+    "Include social impact or sustainability references when relevant."
+  ],
+  "dont_list": [
+    "Avoid vague luxury language that hides product utility.",
+    "Avoid narrow representation in visual and copy examples.",
+    "Avoid claims without context, proof point, or source."
+  ],
+  "visual_style": [
+    "High-contrast beauty closeups",
+    "City-inspired backgrounds and motion",
+    "Product-first framing with tactile swatches"
+  ],
+  "brand_pillars": [
+    "accessible: highlighted in source copy",
+    "effortless: highlighted in source copy",
+    "diversity: highlighted in source copy",
+    "self-expression: highlighted in source copy",
+    "recycling: highlighted in source copy",
+    "anxiety: highlighted in source copy",
+    "depression: highlighted in source copy",
+    "performance: highlighted in source copy"
+  ],
+  "source_pages": [
+    "https://www.maybelline.com/about-maybelline",
+    "https://www.maybelline.com/make-up-make-change",
+    "https://www.maybelline.com/conscious-together",
+    "https://www.loreal.com/lorealusa/brand/consumer-products-division/maybelline-new-york"
+  ],
+  "source_highlights": [
+    "We\u2019re from New York, and in this city you have to be ready for anything.",
+    "We make no-hassle, high-performance makeup tried and tested on our streets.",
+    "Makeup for every look, style, skin tone.",
+    "Trendsetting looks from NYC.",
+    "Fast + easy on-the-go makeup.",
+    "Makeup that stands up to the city.",
+    "Makeup Make Change is our social impact platform with two focuses: Brave Together and Conscious Together.",
+    "Brave Together supports people experiencing anxiety and depression.",
+    "Conscious Together sets goals across production, packaging, formula and disposal.",
+    "Partnership with The Recycling Partnership supports recycling access and contamination reduction.",
+    "Mission: innovative, accessible and effortless cosmetics.",
+    "Values: democratizing beauty, diversity, self-expression.",
+    "Maybelline is a global makeup brand available in 120+ countries."
+  ]
+}

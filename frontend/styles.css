@@ -1,0 +1,100 @@
+:root {
+  --bg: #f3efe8;
+  --surface: #fffdf8;
+  --ink: #1d232b;
+  --muted: #55606d;
+  --accent: #05668d;
+  --accent-2: #f4a261;
+  --border: #d6d0c4;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Avenir Next", "Segoe UI", sans-serif;
+  color: var(--ink);
+  background: radial-gradient(circle at 10% 0%, #fdfaf4 0%, #f3efe8 45%, #e9e3d9 100%);
+}
+
+.layout {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+header h1 {
+  margin-bottom: 8px;
+  font-size: 2rem;
+}
+
+header p {
+  margin-top: 0;
+  color: var(--muted);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+}
+
+h2 {
+  margin-top: 0;
+  font-size: 1.1rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+input,
+textarea,
+button {
+  font: inherit;
+  padding: 9px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+textarea {
+  min-height: 84px;
+  resize: vertical;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: linear-gradient(120deg, var(--accent), #028090);
+  color: #fff;
+  font-weight: 600;
+}
+
+button:hover {
+  filter: brightness(1.05);
+}
+
+ul {
+  padding-left: 18px;
+}
+
+pre {
+  overflow-x: auto;
+  background: #f7f4ef;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}

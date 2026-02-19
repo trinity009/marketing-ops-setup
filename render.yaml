@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: marketing-ops-setup
+    env: docker
+    plan: starter
+    autoDeploy: true

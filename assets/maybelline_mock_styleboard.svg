@@ -1,0 +1,19 @@
+<svg width="1440" height="900" viewBox="0 0 1440 900" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#101820"/>
+      <stop offset="100%" stop-color="#252f3b"/>
+    </linearGradient>
+  </defs>
+  <rect width="1440" height="900" fill="url(#bg)"/>
+  <circle cx="1160" cy="160" r="220" fill="#f8c8dc" fill-opacity="0.2"/>
+  <circle cx="280" cy="760" r="260" fill="#ff6b7c" fill-opacity="0.2"/>
+  <text x="120" y="180" fill="#ffffff" font-size="68" font-family="Arial, sans-serif" font-weight="700">MAYBELLINE</text>
+  <text x="120" y="245" fill="#f8c8dc" font-size="32" font-family="Arial, sans-serif">Mock Styleboard: Urban, Inclusive, High-Performance</text>
+  <rect x="120" y="320" width="1200" height="420" rx="20" fill="#ffffff" fill-opacity="0.08" stroke="#f8c8dc" stroke-opacity="0.35"/>
+  <text x="160" y="390" fill="#ffffff" font-size="34" font-family="Arial, sans-serif">Campaign Frame</text>
+  <text x="160" y="445" fill="#d7dde5" font-size="26" font-family="Arial, sans-serif">- Fast-paced city scenes</text>
+  <text x="160" y="490" fill="#d7dde5" font-size="26" font-family="Arial, sans-serif">- Performance proof in real-life moments</text>
+  <text x="160" y="535" fill="#d7dde5" font-size="26" font-family="Arial, sans-serif">- Broad shade representation across cast</text>
+  <text x="160" y="580" fill="#d7dde5" font-size="26" font-family="Arial, sans-serif">- Product-first closeups with tactile textures</text>
+</svg>

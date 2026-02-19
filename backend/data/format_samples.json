@@ -1,0 +1,36 @@
+{
+  "formats": [
+    {
+      "name": "Paid Social 9:16 Video",
+      "channel": "TikTok/Reels",
+      "input_template": {
+        "objective": "Drive product trial",
+        "audience": "18-34 beauty shoppers",
+        "hook": "Transfer-proof lip in one swipe",
+        "proof": "Up to 16-hour wear claim",
+        "cta": "Shop now"
+      },
+      "output_example": {
+        "duration_seconds": 15,
+        "structure": ["0-3s Hook", "4-9s Product demo", "10-13s Benefit recap", "14-15s CTA"],
+        "asset_notes": "Close-up lip swatches, urban background b-roll"
+      }
+    },
+    {
+      "name": "E-commerce PDP Hero Image",
+      "channel": "D2C Product Page",
+      "input_template": {
+        "product": "Super Stay Matte Ink",
+        "shade": "Pioneer",
+        "benefit": "Long-lasting matte finish",
+        "background": "Neutral studio"
+      },
+      "output_example": {
+        "resolution": "2000x2000",
+        "framing": "Product centered, angled 15 degrees",
+        "overlay_text": "Up to 16H wear",
+        "alt_text": "Maybelline Super Stay Matte Ink lipstick in Pioneer shade"
+      }
+    }
+  ]
+}

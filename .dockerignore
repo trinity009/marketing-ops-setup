@@ -1,0 +1,6 @@
+.git
+.gitignore
+backend/.venv
+__pycache__
+*.pyc
+marketing_ops.db

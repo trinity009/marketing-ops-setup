@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Marketing Ops Setup System</title>
+    <link rel="stylesheet" href="/assets/styles.css" />
+  </head>
+  <body>
+    <main class="layout">
+      <header>
+        <h1>Marketing Ops Setup System</h1>
+        <p>Knowledge base + workflow agents for research, insights, and content.</p>
+      </header>
+
+      <section class="panel">
+        <h2>Setup</h2>
+        <button id="bootstrapBtn">Bootstrap Sample Knowledge Base</button>
+        <button id="maybellineBootstrapBtn">Load Maybelline Baseline KB</button>
+        <p id="setupMessage"></p>
+      </section>
+
+      <section class="grid">
+        <article class="panel">
+          <h2>Create Brand Guideline</h2>
+          <form id="guidelineForm" class="form">
+            <input name="name" placeholder="Name" required />
+            <textarea name="tone_of_voice" placeholder="Tone of voice" required></textarea>
+            <textarea name="do_list" placeholder="Do list" required></textarea>
+            <textarea name="dont_list" placeholder="Don't list" required></textarea>
+            <textarea name="visual_style" placeholder="Visual style" required></textarea>
+            <button type="submit">Save Guideline</button>
+          </form>
+        </article>
+
+        <article class="panel">
+          <h2>Create Brief Template</h2>
+          <form id="templateForm" class="form">
+            <input name="name" placeholder="Name" required />
+            <input name="channel" placeholder="Channel" required />
+            <textarea name="structure" placeholder="Structure" required></textarea>
+            <button type="submit">Save Template</button>
+          </form>
+        </article>
+
+        <article class="panel">
+          <h2>Create Prompt Library Item</h2>
+          <form id="promptForm" class="form">
+            <input name="name" placeholder="Name" required />
+            <input name="stage" placeholder="Stage" required />
+            <input name="model_type" placeholder="Model Type" required />
+            <textarea name="prompt_text" placeholder="Prompt" required></textarea>
+            <button type="submit">Save Prompt</button>
+          </form>
+        </article>
+      </section>
+
+      <section class="panel">
+        <h2>Run Workflow</h2>
+        <form id="runForm" class="form">
+          <textarea name="objective" placeholder="Campaign objective" required></textarea>
+          <input name="workflow_name" value="standard-marketing-workflow" required />
+          <button type="submit">Run Agents</button>
+        </form>
+        <pre id="runOutput">No runs yet.</pre>
+      </section>
+
+      <section class="grid">
+        <article class="panel">
+          <h2>Brand Guidelines</h2>
+          <ul id="guidelineList"></ul>
+        </article>
+        <article class="panel">
+          <h2>Brief Templates</h2>
+          <ul id="templateList"></ul>
+        </article>
+        <article class="panel">
+          <h2>Prompt Library</h2>
+          <ul id="promptList"></ul>
+        </article>
+      </section>
+    </main>
+
+    <script src="/assets/app.js"></script>
+  </body>
+</html>
