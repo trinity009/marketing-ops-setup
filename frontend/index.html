@@ -15,6 +15,8 @@
   <body>
     <div class="bg-glow glow-a"></div>
     <div class="bg-glow glow-b"></div>
+    <div class="beam beam-a"></div>
+    <div class="beam beam-b"></div>
 
     <main class="layout">
       <header class="hero reveal">
@@ -35,111 +37,136 @@
         </div>
       </header>
 
-      <section class="panel reveal delay-1">
-        <div class="panel-head">
-          <h2>System Setup</h2>
-          <p>Initialize your workspace with sample data or the baseline beauty-brand dataset.</p>
-        </div>
-        <div class="action-row">
-          <button id="bootstrapBtn">Bootstrap Sample KB</button>
-          <button id="maybellineBootstrapBtn" class="ghost">Load Maybelline Baseline</button>
-        </div>
-        <p id="setupMessage" class="status-text">No setup action run yet.</p>
-      </section>
-
-      <section class="grid grid-3 reveal delay-2">
-        <article class="panel">
-          <div class="panel-head">
-            <h2>Brand Guideline</h2>
-            <p>Define strategic tone, visual style, and guardrails.</p>
-          </div>
-          <form id="guidelineForm" class="form">
-            <input name="name" placeholder="Name" required />
-            <textarea name="tone_of_voice" placeholder="Tone of voice" required></textarea>
-            <textarea name="do_list" placeholder="Do list" required></textarea>
-            <textarea name="dont_list" placeholder="Don't list" required></textarea>
-            <textarea name="visual_style" placeholder="Visual style" required></textarea>
-            <button type="submit">Save Guideline</button>
-          </form>
-        </article>
-
-        <article class="panel">
-          <div class="panel-head">
-            <h2>Brief Template</h2>
-            <p>Capture reusable campaign structure by channel.</p>
-          </div>
-          <form id="templateForm" class="form">
-            <input name="name" placeholder="Name" required />
-            <input name="channel" placeholder="Channel" required />
-            <textarea name="structure" placeholder="Structure" required></textarea>
-            <button type="submit">Save Template</button>
-          </form>
-        </article>
-
-        <article class="panel">
-          <div class="panel-head">
-            <h2>Prompt Library Item</h2>
-            <p>Store model prompts by production stage and type.</p>
-          </div>
-          <form id="promptForm" class="form">
-            <input name="name" placeholder="Name" required />
-            <input name="stage" placeholder="Stage" required />
-            <input name="model_type" placeholder="Model Type" required />
-            <textarea name="prompt_text" placeholder="Prompt" required></textarea>
-            <button type="submit">Save Prompt</button>
-          </form>
-        </article>
-      </section>
-
-      <section class="panel reveal delay-3">
-        <div class="panel-head">
-          <h2>Run Agent Workflow</h2>
-          <p>Execute the full orchestration chain: research -> insights -> content.</p>
-        </div>
-        <form id="runForm" class="form">
-          <textarea name="objective" placeholder="Campaign objective" required></textarea>
-          <input name="workflow_name" value="standard-marketing-workflow" required />
-          <button type="submit">Run Agents</button>
-        </form>
-        <div class="stage-grid">
-          <article class="stage-card">
-            <p class="stage-label">Stage 01</p>
-            <h3>Research</h3>
-            <p id="researchSummary" class="stage-summary">Run a workflow to see research findings.</p>
-            <ul id="researchList" class="stage-list"></ul>
+      <section class="studio reveal delay-1">
+        <div class="studio-left">
+          <article class="panel motion-card">
+            <div class="panel-head">
+              <h2>System Setup</h2>
+              <p>Initialize your workspace with sample data or the baseline beauty-brand dataset.</p>
+            </div>
+            <div class="action-row">
+              <button id="bootstrapBtn">Bootstrap Sample KB</button>
+              <button id="maybellineBootstrapBtn" class="ghost">Load Maybelline Baseline</button>
+            </div>
+            <p id="setupMessage" class="status-text">No setup action run yet.</p>
           </article>
-          <article class="stage-card">
-            <p class="stage-label">Stage 02</p>
-            <h3>Insights</h3>
-            <p id="insightsSummary" class="stage-summary">Actionable insight output appears here.</p>
-            <ul id="insightsList" class="stage-list"></ul>
-          </article>
-          <article class="stage-card">
-            <p class="stage-label">Stage 03</p>
-            <h3>Content</h3>
-            <p id="contentSummary" class="stage-summary">Generated draft copy and notes appear here.</p>
-            <ul id="contentList" class="stage-list"></ul>
-          </article>
-        </div>
-        <div class="result-toolbar">
-          <button id="toggleRawBtn" type="button" class="subtle">Toggle Raw JSON</button>
-        </div>
-        <pre id="runOutput" class="hidden">No runs yet.</pre>
-      </section>
 
-      <section class="grid grid-3 reveal delay-4">
-        <article class="panel">
-          <h2>Brand Guidelines</h2>
-          <ul id="guidelineList" class="item-list"></ul>
-        </article>
-        <article class="panel">
-          <h2>Brief Templates</h2>
-          <ul id="templateList" class="item-list"></ul>
-        </article>
-        <article class="panel">
-          <h2>Prompt Library</h2>
-          <ul id="promptList" class="item-list"></ul>
-        </article>
+          <section class="stats-row">
+            <article class="stat-card motion-card">
+              <p>Guidelines</p>
+              <h3 id="guidelineCount">0</h3>
+            </article>
+            <article class="stat-card motion-card">
+              <p>Templates</p>
+              <h3 id="templateCount">0</h3>
+            </article>
+            <article class="stat-card motion-card">
+              <p>Prompts</p>
+              <h3 id="promptCount">0</h3>
+            </article>
+          </section>
+
+          <section class="form-stack">
+            <article class="panel motion-card">
+              <div class="panel-head">
+                <h2>Brand Guideline</h2>
+                <p>Define strategic tone, visual style, and guardrails.</p>
+              </div>
+              <form id="guidelineForm" class="form">
+                <input name="name" placeholder="Name" required />
+                <textarea name="tone_of_voice" placeholder="Tone of voice" required></textarea>
+                <textarea name="do_list" placeholder="Do list" required></textarea>
+                <textarea name="dont_list" placeholder="Don't list" required></textarea>
+                <textarea name="visual_style" placeholder="Visual style" required></textarea>
+                <button type="submit">Save Guideline</button>
+              </form>
+            </article>
+
+            <article class="panel motion-card">
+              <div class="panel-head">
+                <h2>Brief Template</h2>
+                <p>Capture reusable campaign structure by channel.</p>
+              </div>
+              <form id="templateForm" class="form">
+                <input name="name" placeholder="Name" required />
+                <input name="channel" placeholder="Channel" required />
+                <textarea name="structure" placeholder="Structure" required></textarea>
+                <button type="submit">Save Template</button>
+              </form>
+            </article>
+
+            <article class="panel motion-card">
+              <div class="panel-head">
+                <h2>Prompt Library Item</h2>
+                <p>Store model prompts by production stage and type.</p>
+              </div>
+              <form id="promptForm" class="form">
+                <input name="name" placeholder="Name" required />
+                <input name="stage" placeholder="Stage" required />
+                <input name="model_type" placeholder="Model Type" required />
+                <textarea name="prompt_text" placeholder="Prompt" required></textarea>
+                <button type="submit">Save Prompt</button>
+              </form>
+            </article>
+          </section>
+        </div>
+
+        <div class="studio-right">
+          <article class="panel flow-panel motion-card">
+            <div class="panel-head">
+              <h2>Workflow Engine</h2>
+              <p>Execute the full orchestration chain: research -> insights -> content.</p>
+            </div>
+            <div class="flow-layout">
+              <form id="runForm" class="form flow-form">
+                <textarea name="objective" placeholder="Campaign objective" required></textarea>
+                <input name="workflow_name" value="standard-marketing-workflow" required />
+                <button type="submit">Run Agents</button>
+              </form>
+
+              <div class="flow-rail" id="flowRail">
+                <div class="rail-line"></div>
+                <article class="stage-card stage-1" data-stage="1">
+                  <p class="stage-label">Stage 01</p>
+                  <h3>Research</h3>
+                  <p id="researchSummary" class="stage-summary">Run a workflow to see research findings.</p>
+                  <ul id="researchList" class="stage-list"></ul>
+                </article>
+                <article class="stage-card stage-2" data-stage="2">
+                  <p class="stage-label">Stage 02</p>
+                  <h3>Insights</h3>
+                  <p id="insightsSummary" class="stage-summary">Actionable insight output appears here.</p>
+                  <ul id="insightsList" class="stage-list"></ul>
+                </article>
+                <article class="stage-card stage-3" data-stage="3">
+                  <p class="stage-label">Stage 03</p>
+                  <h3>Content</h3>
+                  <p id="contentSummary" class="stage-summary">Generated draft copy and notes appear here.</p>
+                  <ul id="contentList" class="stage-list"></ul>
+                </article>
+              </div>
+            </div>
+            <div class="result-toolbar">
+              <button id="toggleRawBtn" type="button" class="subtle">Toggle Raw JSON</button>
+            </div>
+            <pre id="runOutput" class="hidden">No runs yet.</pre>
+          </article>
+
+          <section class="grid grid-3 repo-grid">
+            <article class="panel motion-card">
+              <h2>Brand Guidelines</h2>
+              <ul id="guidelineList" class="item-list"></ul>
+            </article>
+            <article class="panel motion-card">
+              <h2>Brief Templates</h2>
+              <ul id="templateList" class="item-list"></ul>
+            </article>
+            <article class="panel motion-card">
+              <h2>Prompt Library</h2>
+              <ul id="promptList" class="item-list"></ul>
+            </article>
+          </section>
+        </div>
       </section>
     </main>
 

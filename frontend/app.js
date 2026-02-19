@@ -32,7 +32,14 @@ const ids = {
   insightsList: document.getElementById("insightsList"),
   contentList: document.getElementById("contentList"),
   toggleRawBtn: document.getElementById("toggleRawBtn"),
+  guidelineCount: document.getElementById("guidelineCount"),
+  templateCount: document.getElementById("templateCount"),
+  promptCount: document.getElementById("promptCount"),
+  flowRail: document.getElementById("flowRail"),
 };
+
+const stageCards = Array.from(document.querySelectorAll(".stage-card"));
+let stageAnimationTimer = null;
 
 function formDataToObject(form) {
   return Object.fromEntries(new FormData(form).entries());
@@ -68,7 +75,64 @@ function renderBullets(container, items) {
   });
 }
 
-function renderWorkflowResult(rawResultJson) {
+function setStageProgress(progressPercent) {
+  if (!ids.flowRail) return;
+  ids.flowRail.style.setProperty("--flow-progress", `${progressPercent}%`);
+}
+
+function resetStageActivation() {
+  stageCards.forEach((card) => card.classList.remove("active"));
+  setStageProgress(0);
+}
+
+function animateStageActivation() {
+  if (stageAnimationTimer) {
+    window.clearInterval(stageAnimationTimer);
+  }
+  resetStageActivation();
+  const steps = [
+    { index: 0, progress: 33 },
+    { index: 1, progress: 67 },
+    { index: 2, progress: 100 },
+  ];
+  let pointer = 0;
+  stageAnimationTimer = window.setInterval(() => {
+    const step = steps[pointer];
+    if (!step) {
+      window.clearInterval(stageAnimationTimer);
+      stageAnimationTimer = null;
+      return;
+    }
+    stageCards[step.index]?.classList.add("active");
+    setStageProgress(step.progress);
+    pointer += 1;
+  }, 260);
+}
+
+function activateStagesImmediately() {
+  stageCards.forEach((card) => card.classList.add("active"));
+  setStageProgress(100);
+}
+
+function attachCardTilt() {
+  const cards = document.querySelectorAll(".motion-card");
+  cards.forEach((card) => {
+    card.addEventListener("mousemove", (event) => {
+      const rect = card.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+      const rotateY = ((x / rect.width) - 0.5) * 4;
+      const rotateX = ((y / rect.height) - 0.5) * -4;
+      card.style.transform = `perspective(700px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-1px)`;
+    });
+    card.addEventListener("mouseleave", () => {
+      card.style.transform = "perspective(700px) rotateX(0) rotateY(0) translateY(0)";
+    });
+  });
+}
+
+function renderWorkflowResult(rawResultJson, options = {}) {
+  const { animate = true } = options;
   let parsed;
   try {
     parsed = JSON.parse(rawResultJson);
@@ -100,15 +164,21 @@ function renderWorkflowResult(rawResultJson) {
   renderBullets(ids.contentList, [draftPreview, content.asset_notes || "No asset notes"]);
 
   ids.runOutput.textContent = JSON.stringify(parsed, null, 2);
+  if (animate) {
+    animateStageActivation();
+  } else {
+    activateStagesImmediately();
+  }
 }
 
 async function refreshLatestWorkflow() {
   try {
     const workflows = await api.get("/api/workflows");
     if (!Array.isArray(workflows) || !workflows.length) {
+      resetStageActivation();
       return;
     }
-    renderWorkflowResult(workflows[0].result_json);
+    renderWorkflowResult(workflows[0].result_json, { animate: false });
   } catch (_error) {
     // Keep dashboard usable even if workflow history is unavailable.
   }
@@ -125,6 +195,9 @@ async function refreshLists() {
     renderList(ids.guidelineList, guidelines, (g) => `#${g.id} ${g.name} | ${g.tone_of_voice}`);
     renderList(ids.templateList, templates, (t) => `#${t.id} ${t.name} | ${t.channel}`);
     renderList(ids.promptList, prompts, (p) => `#${p.id} ${p.name} | ${p.model_type}`);
+    ids.guidelineCount.textContent = String(guidelines.length);
+    ids.templateCount.textContent = String(templates.length);
+    ids.promptCount.textContent = String(prompts.length);
   } catch (error) {
     ids.setupMessage.textContent = `Could not load records: ${error.message}`;
   }
@@ -204,3 +277,4 @@ ids.toggleRawBtn.addEventListener("click", () => {
 
 refreshLists();
 refreshLatestWorkflow();
+attachCardTilt();
